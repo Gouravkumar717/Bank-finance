@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    tools {
+        maven "M2_HOME"
+    }
+    stages {
+        stage ("Clone and Build") {
+            step {
+                git branch: "master", url: "https://github.com/Gouravkumar717/Bank-finance.git", credentialsId: "git-cread"
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+        }
+        
+    }
+}
