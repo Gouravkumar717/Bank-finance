@@ -32,5 +32,17 @@ pipeline {
                 sh "docker push gourav787/banking-finance-project:1.0"
             }
         }
+        stage('Deploy with Terraform') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AwsAccessKey', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    dir("terraform-files") {
+                        sh 'chmod 600 mykeyohio.pem' // Ensure the permissions are set for the key
+                        sh 'terraform init'
+                        sh 'terraform validate'
+                        sh 'terraform apply --auto-approve'
+                    }
+                }
+            }
+        }
     }
 }
