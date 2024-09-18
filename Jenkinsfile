@@ -21,15 +21,15 @@ pipeline {
             }
         }
         stage("Docker-login") {
-            step {
+            steps {
                 withCredentials([usernamePassword(credentialsId: 'Docker-cred', passwordVariable: 'dockerpassword', usernameVariable: 'dockerlogin')]) {
                     sh "docker login -u ${dockerlogin} -p ${dockerpassword}"
                 }
             }
         }
-        stage ("Docker-push") {
-            step {
-                sh "docker push gourav/banking-finance-project:1.0"
+        stage("Docker-push") {
+            steps {
+                sh "docker push gourav787/banking-finance-project:1.0"
             }
         }
     }
