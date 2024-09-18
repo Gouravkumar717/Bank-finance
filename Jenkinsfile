@@ -1,18 +1,6 @@
 pipeline {
     agent any
     tools {
-        maven "M2_HOME" // Ensure this matches the name configured in Jenkins for Maven
-    }
-    stages {
-        stage ("Clone and Build") {
-            steps {
-                // Cloning the repository
-                git branch: "master", url: "https://github.com/Gouravkumar717/Bank-finance.git", credentialsId: "git-cread"
-                
-                // Running Maven build
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"pipeline {
-    agent any
-    tools {
         maven "M2_HOME"
     }
     stages {
@@ -29,13 +17,8 @@ pipeline {
         }
         stage ("Create Docker Image") {
             step {
-                sh "docker build -t gouragourav787/banking-finace-project:1.0"
+                sh "docker build -t gouragourav787/banking-finace-project:1.0."
             }
         }
     }
 }
-            }
-        }
-    }
-}
-
